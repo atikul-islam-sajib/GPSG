@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Trainer - My Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Trainer";
+        var mkdocs_page_input_path = "trainer.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> My Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../discriminator/">Discriminator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../generator/">Generator</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Trainer</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../data_loader/">Dataloader</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">My Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Trainer</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div class="doc doc-object doc-module">
+
+
+
+<a id="trainer"></a>
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="trainer.Trainer" class="doc doc-heading">
+          <code>Trainer</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>A Trainer class for setting up and training a Generative Adversarial Network (GAN).</p>
+<p>This class is responsible for initializing the GAN components, including the generator and
+discriminator models, loss functions, optimizers, and the dataloader for input data. It
+also configures the training environment (device selection) and training parameters.</p>
+<p>Attributes:
+- lr (float): Learning rate for the Adam optimizers of both generator and discriminator.
+- epochs (int): Number of epochs for training the GAN.
+- betas (tuple): Beta coefficients used for computing running averages of gradient and its square
+                 in the Adam optimizer.
+- latent_space (int): Dimensionality of the latent space for the generator.
+- dataloader (DataLoader): DataLoader object for loading the training data.
+- device (torch.device): The computation device (CPU or GPU/MPS) for training.
+- loss_function (nn.Module): The loss function used during training (Binary Cross Entropy Loss).
+- generator (nn.Module): The generator model of the GAN.
+- discriminator (nn.Module): The discriminator model of the GAN.
+- optimizer_discriminator (optim.Optimizer): The optimizer for the discriminator.
+- optimizer_generator (optim.Optimizer): The optimizer for the generator.</p>
+<p>The class assumes the presence of a 'Generator' and 'Discriminator' class for initializing
+the respective models. The training data is expected to be pre-processed and serialized using
+joblib, and is loaded into a DataLoader.</p>
+<p>Usage:
+To use this class, create an instance and then call its training method (not implemented in
+this snippet). For example:
+    trainer = Trainer(lr=0.0002, epochs=100, betas=(0.5, 0.999), latent_space=100)
+    trainer.train()  # Assuming a 'train' method is implemented</p>
+<p>Note:
+- This class requires the 'torch', 'torchvision', 'torch.nn', 'torch.optim', and 'joblib' libraries.
+- The trainer is designed to work with image data, specifically configured here for the MNIST dataset.
+- The device selection is automatically determined based on the availability of Apple's Metal
+  Performance Shaders (MPS) for acceleration on compatible hardware.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>trainer.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Trainer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A Trainer class for setting up and training a Generative Adversarial Network (GAN).</span>
+
+<span class="sd">    This class is responsible for initializing the GAN components, including the generator and</span>
+<span class="sd">    discriminator models, loss functions, optimizers, and the dataloader for input data. It</span>
+<span class="sd">    also configures the training environment (device selection) and training parameters.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">    - lr (float): Learning rate for the Adam optimizers of both generator and discriminator.</span>
+<span class="sd">    - epochs (int): Number of epochs for training the GAN.</span>
+<span class="sd">    - betas (tuple): Beta coefficients used for computing running averages of gradient and its square</span>
+<span class="sd">                     in the Adam optimizer.</span>
+<span class="sd">    - latent_space (int): Dimensionality of the latent space for the generator.</span>
+<span class="sd">    - dataloader (DataLoader): DataLoader object for loading the training data.</span>
+<span class="sd">    - device (torch.device): The computation device (CPU or GPU/MPS) for training.</span>
+<span class="sd">    - loss_function (nn.Module): The loss function used during training (Binary Cross Entropy Loss).</span>
+<span class="sd">    - generator (nn.Module): The generator model of the GAN.</span>
+<span class="sd">    - discriminator (nn.Module): The discriminator model of the GAN.</span>
+<span class="sd">    - optimizer_discriminator (optim.Optimizer): The optimizer for the discriminator.</span>
+<span class="sd">    - optimizer_generator (optim.Optimizer): The optimizer for the generator.</span>
+
+<span class="sd">    The class assumes the presence of a &#39;Generator&#39; and &#39;Discriminator&#39; class for initializing</span>
+<span class="sd">    the respective models. The training data is expected to be pre-processed and serialized using</span>
+<span class="sd">    joblib, and is loaded into a DataLoader.</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">    To use this class, create an instance and then call its training method (not implemented in</span>
+<span class="sd">    this snippet). For example:</span>
+<span class="sd">        trainer = Trainer(lr=0.0002, epochs=100, betas=(0.5, 0.999), latent_space=100)</span>
+<span class="sd">        trainer.train()  # Assuming a &#39;train&#39; method is implemented</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">    - This class requires the &#39;torch&#39;, &#39;torchvision&#39;, &#39;torch.nn&#39;, &#39;torch.optim&#39;, and &#39;joblib&#39; libraries.</span>
+<span class="sd">    - The trainer is designed to work with image data, specifically configured here for the MNIST dataset.</span>
+<span class="sd">    - The device selection is automatically determined based on the availability of Apple&#39;s Metal</span>
+<span class="sd">      Performance Shaders (MPS) for acceleration on compatible hardware.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.0002</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">betas</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">),</span> <span class="n">latent_space</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">lr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epochs</span> <span class="o">=</span> <span class="n">epochs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">betas</span> <span class="o">=</span> <span class="n">betas</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latent_space</span> <span class="o">=</span> <span class="n">latent_space</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataloader</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;./data/processed/dataloader.pkl&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span>
+            <span class="s2">&quot;mps&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss_function</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generator</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">discriminator</span> <span class="o">=</span> <span class="n">Discriminator</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer_discriminator</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">discriminator</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lr</span><span class="p">,</span> <span class="n">betas</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">betas</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer_generator</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lr</span><span class="p">,</span> <span class="n">betas</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">betas</span>
+        <span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Define the discriminator training function&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">saved_checkpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Saves the current state (weights and biases) of the generator model as a checkpoint file.</span>
+
+<span class="sd">        This method is intended to be used during the training process of a Generative Adversarial Network (GAN)</span>
+<span class="sd">        to periodically save the state of the generator. The saved state can be used for resuming training,</span>
+<span class="sd">        evaluation, or generating data at a later time. The checkpoint is saved in the current directory with</span>
+<span class="sd">        a filename that includes the epoch number.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        - epoch (int): The current epoch number in the training process. This is used to tag the saved file</span>
+<span class="sd">        for easy identification.</span>
+
+<span class="sd">        The method assumes the presence of a &#39;generator&#39; attribute in the class instance, which is the</span>
+<span class="sd">        neural network model to be saved. It also utilizes Python&#39;s logging module to log the success or</span>
+<span class="sd">        failure of the save operation.</span>
+
+<span class="sd">        Upon successful saving, a message is logged with the checkpoint file&#39;s name. If an exception occurs</span>
+<span class="sd">        during saving, an error message is logged with the exception details.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">        - To save a checkpoint of the generator at epoch 5:</span>
+<span class="sd">        instance.saved_checkpoint(5)</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">        - The method uses &#39;torch.save&#39; for saving the model state and requires the PyTorch library.</span>
+<span class="sd">        - The saved files follow the naming convention &#39;generator_{epoch}.pth&#39;, where {epoch} is replaced</span>
+<span class="sd">        with the actual epoch number.</span>
+<span class="sd">        - Exception handling is used to manage any errors that might occur during the save operation, with</span>
+<span class="sd">        details logged as error messages.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Save the checkpoint of the discriminator&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
+                <span class="s2">&quot;./models/checkpoints/generator_</span><span class="si">{}</span><span class="s2">.pth&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error saving the checkpoint of the generator: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">train_discriminator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_samples</span><span class="p">,</span> <span class="n">fake_samples</span><span class="p">,</span> <span class="n">real_labels</span><span class="p">,</span> <span class="n">fake_labels</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Train the discriminator of a Generative Adversarial Network (GAN).</span>
+
+<span class="sd">        This function updates the discriminator by training it on both real and fake samples.</span>
+<span class="sd">        It calculates the loss for both real and fake predictions and backpropagates the total loss</span>
+<span class="sd">        to update the discriminator&#39;s weights.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        - real_samples (Tensor): A batch of real samples from the dataset.</span>
+<span class="sd">        - fake_samples (Tensor): A batch of fake samples generated by the GAN&#39;s generator.</span>
+<span class="sd">        - real_labels (Tensor): A batch of labels, typically ones, representing real samples.</span>
+<span class="sd">        - fake_labels (Tensor): A batch of labels, typically zeros, representing fake samples.</span>
+
+<span class="sd">        The function assumes that the discriminator and loss_function are globally accessible,</span>
+<span class="sd">        and it also utilizes the optimizer_discriminator for the backpropagation process.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        - float: The total loss incurred by the discriminator for the current batch of real and fake samples.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer_discriminator</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+
+        <span class="n">real_predicted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">discriminator</span><span class="p">(</span><span class="n">real_samples</span><span class="p">)</span>
+        <span class="n">fake_predicted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">discriminator</span><span class="p">(</span><span class="n">fake_samples</span><span class="o">.</span><span class="n">detach</span><span class="p">())</span>
+
+        <span class="n">real_predicted_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_function</span><span class="p">(</span><span class="n">real_predicted</span><span class="p">,</span> <span class="n">real_labels</span><span class="p">)</span>
+        <span class="n">fake_predicted_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_function</span><span class="p">(</span><span class="n">fake_predicted</span><span class="p">,</span> <span class="n">fake_labels</span><span class="p">)</span>
+
+        <span class="n">total_discriminator_loss</span> <span class="o">=</span> <span class="n">real_predicted_loss</span> <span class="o">+</span> <span class="n">fake_predicted_loss</span>
+
+        <span class="n">total_discriminator_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer_discriminator</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">total_discriminator_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Define the generator training function&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">train_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fake_samples</span><span class="p">,</span> <span class="n">real_labels</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Train the generator of a Generative Adversarial Network (GAN).</span>
+
+<span class="sd">        This function trains the generator by attempting to fool the discriminator. It updates</span>
+<span class="sd">        the generator based on how well it can trick the discriminator into classifying the</span>
+<span class="sd">        generated (fake) samples as real. The function calculates the loss by comparing the</span>
+<span class="sd">        discriminator&#39;s predictions on the fake samples against the &#39;real&#39; labels and then</span>
+<span class="sd">        performs backpropagation to update the generator&#39;s weights.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        - fake_samples (Tensor): A batch of fake samples generated by the GAN&#39;s generator.</span>
+<span class="sd">        - real_labels (Tensor): A batch of labels, typically ones, used as targets for training the generator.</span>
+
+<span class="sd">        This function assumes the availability of a globally accessible discriminator model,</span>
+<span class="sd">        a loss function, and the optimizer for the generator (optimizer_generator).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        - float: The loss incurred by the generator for the current batch of fake samples, indicating</span>
+<span class="sd">                how well the generator is able to fool the discriminator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer_generator</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+
+        <span class="n">fake_predict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">discriminator</span><span class="p">(</span><span class="n">fake_samples</span><span class="p">)</span>
+
+        <span class="n">generated_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_function</span><span class="p">(</span><span class="n">fake_predict</span><span class="p">,</span> <span class="n">real_labels</span><span class="p">)</span>
+
+        <span class="n">generated_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer_generator</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">generated_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">train_simple_gan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Train a Generative Adversarial Network (GAN) consisting of a generator and discriminator.</span>
+
+<span class="sd">        This function orchestrates the training process of a GAN over a specified number of epochs.</span>
+<span class="sd">        Training involves alternating between training the discriminator and the generator.</span>
+<span class="sd">        The discriminator is trained to distinguish real data from fake data generated by the generator,</span>
+<span class="sd">        while the generator is trained to produce data that appears real to the discriminator.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        - epochs (int): The number of training epochs.</span>
+<span class="sd">        - latent_space (int): The size of the latent space used to generate noise samples for the generator.</span>
+<span class="sd">        - print_interval (int): Interval of steps for printing training progress within each epoch.</span>
+<span class="sd">        - dataloader (DataLoader): DataLoader object providing access to the dataset.</span>
+<span class="sd">        - device (torch.device): The device (CPU/GPU) on which the training is performed.</span>
+
+<span class="sd">        The function assumes that &#39;train_discriminator&#39; and &#39;train_generator&#39; are pre-defined functions</span>
+<span class="sd">        that handle the training of the discriminator and generator, respectively. Additionally,</span>
+<span class="sd">        &#39;generator&#39; and &#39;discriminator&#39; should be predefined models. The function also requires</span>
+<span class="sd">        &#39;np.mean&#39; for calculating average losses, and it prints the training progress at regular intervals.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        None: This function does not return a value but prints the training progress and average losses per epoch.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">print_interval</span> <span class="o">=</span> <span class="mi">100</span>
+
+        <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">):</span>
+            <span class="n">discriminator_loss</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">generator_loss</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">real_samples</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataloader</span><span class="p">):</span>
+                <span class="n">real_samples</span> <span class="o">=</span> <span class="n">real_samples</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+                <span class="n">batch_size</span> <span class="o">=</span> <span class="n">real_samples</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generate noise samples and fake samples&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+
+                <span class="n">noise_samples</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">latent_space</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">device</span>
+                <span class="p">)</span>
+                <span class="n">fake_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="p">(</span><span class="n">noise_samples</span><span class="p">)</span>
+
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Define labels for real and fake samples&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+
+                <span class="n">real_labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+                <span class="n">fake_labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Train the discriminator&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+
+                <span class="n">d_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_discriminator</span><span class="p">(</span>
+                    <span class="n">real_samples</span><span class="o">=</span><span class="n">real_samples</span><span class="p">,</span>
+                    <span class="n">fake_samples</span><span class="o">=</span><span class="n">fake_samples</span><span class="p">,</span>
+                    <span class="n">real_labels</span><span class="o">=</span><span class="n">real_labels</span><span class="p">,</span>
+                    <span class="n">fake_labels</span><span class="o">=</span><span class="n">fake_labels</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Train the generator&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+
+                <span class="n">g_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_generator</span><span class="p">(</span>
+                    <span class="n">fake_samples</span><span class="o">=</span><span class="n">fake_samples</span><span class="p">,</span> <span class="n">real_labels</span><span class="o">=</span><span class="n">real_labels</span>
+                <span class="p">)</span>
+
+                <span class="n">discriminator_loss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d_loss</span><span class="p">)</span>
+                <span class="n">generator_loss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">g_loss</span><span class="p">)</span>
+
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;Print training progress every &#39;print_interval&#39; iterations&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="n">print_interval</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Epoch [</span><span class="si">{</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="si">}</span><span class="s2">], Step [</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataloader</span><span class="p">)</span><span class="si">}</span><span class="s2">], d_loss: </span><span class="si">{</span><span class="n">d_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, g_loss: </span><span class="si">{</span><span class="n">g_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output average loss at the end of each epoch&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch [</span><span class="si">{</span><span class="n">epoch</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="si">}</span><span class="s2">] Completed&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;[==============] Average d_loss: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">discriminator_loss</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> - Average g_loss: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">generator_loss</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Save checkpoint at the end of each epoch&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">saved_checkpoint</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="trainer.Trainer.saved_checkpoint" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">saved_checkpoint</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Saves the current state (weights and biases) of the generator model as a checkpoint file.</p>
+<p>This method is intended to be used during the training process of a Generative Adversarial Network (GAN)
+to periodically save the state of the generator. The saved state can be used for resuming training,
+evaluation, or generating data at a later time. The checkpoint is saved in the current directory with
+a filename that includes the epoch number.</p>
+<p>Parameters:
+- epoch (int): The current epoch number in the training process. This is used to tag the saved file
+for easy identification.</p>
+<p>The method assumes the presence of a 'generator' attribute in the class instance, which is the
+neural network model to be saved. It also utilizes Python's logging module to log the success or
+failure of the save operation.</p>
+<p>Upon successful saving, a message is logged with the checkpoint file's name. If an exception occurs
+during saving, an error message is logged with the exception details.</p>
+<p>Example:
+- To save a checkpoint of the generator at epoch 5:
+instance.saved_checkpoint(5)</p>
+<p>Note:
+- The method uses 'torch.save' for saving the model state and requires the PyTorch library.
+- The saved files follow the naming convention 'generator_{epoch}.pth', where {epoch} is replaced
+with the actual epoch number.
+- Exception handling is used to manage any errors that might occur during the save operation, with
+details logged as error messages.</p>
+
+          <details class="quote">
+            <summary>Source code in <code>trainer.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">saved_checkpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Saves the current state (weights and biases) of the generator model as a checkpoint file.</span>
+
+<span class="sd">    This method is intended to be used during the training process of a Generative Adversarial Network (GAN)</span>
+<span class="sd">    to periodically save the state of the generator. The saved state can be used for resuming training,</span>
+<span class="sd">    evaluation, or generating data at a later time. The checkpoint is saved in the current directory with</span>
+<span class="sd">    a filename that includes the epoch number.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - epoch (int): The current epoch number in the training process. This is used to tag the saved file</span>
+<span class="sd">    for easy identification.</span>
+
+<span class="sd">    The method assumes the presence of a &#39;generator&#39; attribute in the class instance, which is the</span>
+<span class="sd">    neural network model to be saved. It also utilizes Python&#39;s logging module to log the success or</span>
+<span class="sd">    failure of the save operation.</span>
+
+<span class="sd">    Upon successful saving, a message is logged with the checkpoint file&#39;s name. If an exception occurs</span>
+<span class="sd">    during saving, an error message is logged with the exception details.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">    - To save a checkpoint of the generator at epoch 5:</span>
+<span class="sd">    instance.saved_checkpoint(5)</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">    - The method uses &#39;torch.save&#39; for saving the model state and requires the PyTorch library.</span>
+<span class="sd">    - The saved files follow the naming convention &#39;generator_{epoch}.pth&#39;, where {epoch} is replaced</span>
+<span class="sd">    with the actual epoch number.</span>
+<span class="sd">    - Exception handling is used to manage any errors that might occur during the save operation, with</span>
+<span class="sd">    details logged as error messages.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Save the checkpoint of the discriminator&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
+            <span class="s2">&quot;./models/checkpoints/generator_</span><span class="si">{}</span><span class="s2">.pth&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error saving the checkpoint of the generator: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="trainer.Trainer.train_discriminator" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">train_discriminator</span><span class="p">(</span><span class="n">real_samples</span><span class="p">,</span> <span class="n">fake_samples</span><span class="p">,</span> <span class="n">real_labels</span><span class="p">,</span> <span class="n">fake_labels</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Train the discriminator of a Generative Adversarial Network (GAN).</p>
+<p>This function updates the discriminator by training it on both real and fake samples.
+It calculates the loss for both real and fake predictions and backpropagates the total loss
+to update the discriminator's weights.</p>
+<p>Parameters:
+- real_samples (Tensor): A batch of real samples from the dataset.
+- fake_samples (Tensor): A batch of fake samples generated by the GAN's generator.
+- real_labels (Tensor): A batch of labels, typically ones, representing real samples.
+- fake_labels (Tensor): A batch of labels, typically zeros, representing fake samples.</p>
+<p>The function assumes that the discriminator and loss_function are globally accessible,
+and it also utilizes the optimizer_discriminator for the backpropagation process.</p>
+<p>Returns:
+- float: The total loss incurred by the discriminator for the current batch of real and fake samples.</p>
+
+          <details class="quote">
+            <summary>Source code in <code>trainer.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">train_discriminator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_samples</span><span class="p">,</span> <span class="n">fake_samples</span><span class="p">,</span> <span class="n">real_labels</span><span class="p">,</span> <span class="n">fake_labels</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Train the discriminator of a Generative Adversarial Network (GAN).</span>
+
+<span class="sd">    This function updates the discriminator by training it on both real and fake samples.</span>
+<span class="sd">    It calculates the loss for both real and fake predictions and backpropagates the total loss</span>
+<span class="sd">    to update the discriminator&#39;s weights.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - real_samples (Tensor): A batch of real samples from the dataset.</span>
+<span class="sd">    - fake_samples (Tensor): A batch of fake samples generated by the GAN&#39;s generator.</span>
+<span class="sd">    - real_labels (Tensor): A batch of labels, typically ones, representing real samples.</span>
+<span class="sd">    - fake_labels (Tensor): A batch of labels, typically zeros, representing fake samples.</span>
+
+<span class="sd">    The function assumes that the discriminator and loss_function are globally accessible,</span>
+<span class="sd">    and it also utilizes the optimizer_discriminator for the backpropagation process.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - float: The total loss incurred by the discriminator for the current batch of real and fake samples.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">optimizer_discriminator</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+
+    <span class="n">real_predicted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">discriminator</span><span class="p">(</span><span class="n">real_samples</span><span class="p">)</span>
+    <span class="n">fake_predicted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">discriminator</span><span class="p">(</span><span class="n">fake_samples</span><span class="o">.</span><span class="n">detach</span><span class="p">())</span>
+
+    <span class="n">real_predicted_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_function</span><span class="p">(</span><span class="n">real_predicted</span><span class="p">,</span> <span class="n">real_labels</span><span class="p">)</span>
+    <span class="n">fake_predicted_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_function</span><span class="p">(</span><span class="n">fake_predicted</span><span class="p">,</span> <span class="n">fake_labels</span><span class="p">)</span>
+
+    <span class="n">total_discriminator_loss</span> <span class="o">=</span> <span class="n">real_predicted_loss</span> <span class="o">+</span> <span class="n">fake_predicted_loss</span>
+
+    <span class="n">total_discriminator_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">optimizer_discriminator</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">total_discriminator_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="trainer.Trainer.train_generator" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">train_generator</span><span class="p">(</span><span class="n">fake_samples</span><span class="p">,</span> <span class="n">real_labels</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Train the generator of a Generative Adversarial Network (GAN).</p>
+<p>This function trains the generator by attempting to fool the discriminator. It updates
+the generator based on how well it can trick the discriminator into classifying the
+generated (fake) samples as real. The function calculates the loss by comparing the
+discriminator's predictions on the fake samples against the 'real' labels and then
+performs backpropagation to update the generator's weights.</p>
+<p>Parameters:
+- fake_samples (Tensor): A batch of fake samples generated by the GAN's generator.
+- real_labels (Tensor): A batch of labels, typically ones, used as targets for training the generator.</p>
+<p>This function assumes the availability of a globally accessible discriminator model,
+a loss function, and the optimizer for the generator (optimizer_generator).</p>
+      <ul>
+<li>float: The loss incurred by the generator for the current batch of fake samples, indicating
+        how well the generator is able to fool the discriminator.</li>
+</ul>
+
+          <details class="quote">
+            <summary>Source code in <code>trainer.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">train_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fake_samples</span><span class="p">,</span> <span class="n">real_labels</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Train the generator of a Generative Adversarial Network (GAN).</span>
+
+<span class="sd">    This function trains the generator by attempting to fool the discriminator. It updates</span>
+<span class="sd">    the generator based on how well it can trick the discriminator into classifying the</span>
+<span class="sd">    generated (fake) samples as real. The function calculates the loss by comparing the</span>
+<span class="sd">    discriminator&#39;s predictions on the fake samples against the &#39;real&#39; labels and then</span>
+<span class="sd">    performs backpropagation to update the generator&#39;s weights.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - fake_samples (Tensor): A batch of fake samples generated by the GAN&#39;s generator.</span>
+<span class="sd">    - real_labels (Tensor): A batch of labels, typically ones, used as targets for training the generator.</span>
+
+<span class="sd">    This function assumes the availability of a globally accessible discriminator model,</span>
+<span class="sd">    a loss function, and the optimizer for the generator (optimizer_generator).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - float: The loss incurred by the generator for the current batch of fake samples, indicating</span>
+<span class="sd">            how well the generator is able to fool the discriminator.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">optimizer_generator</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+
+    <span class="n">fake_predict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">discriminator</span><span class="p">(</span><span class="n">fake_samples</span><span class="p">)</span>
+
+    <span class="n">generated_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_function</span><span class="p">(</span><span class="n">fake_predict</span><span class="p">,</span> <span class="n">real_labels</span><span class="p">)</span>
+
+    <span class="n">generated_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">optimizer_generator</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">generated_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="trainer.Trainer.train_simple_gan" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">train_simple_gan</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Train a Generative Adversarial Network (GAN) consisting of a generator and discriminator.</p>
+<p>This function orchestrates the training process of a GAN over a specified number of epochs.
+Training involves alternating between training the discriminator and the generator.
+The discriminator is trained to distinguish real data from fake data generated by the generator,
+while the generator is trained to produce data that appears real to the discriminator.</p>
+<p>Parameters:
+- epochs (int): The number of training epochs.
+- latent_space (int): The size of the latent space used to generate noise samples for the generator.
+- print_interval (int): Interval of steps for printing training progress within each epoch.
+- dataloader (DataLoader): DataLoader object providing access to the dataset.
+- device (torch.device): The device (CPU/GPU) on which the training is performed.</p>
+<p>The function assumes that 'train_discriminator' and 'train_generator' are pre-defined functions
+that handle the training of the discriminator and generator, respectively. Additionally,
+'generator' and 'discriminator' should be predefined models. The function also requires
+'np.mean' for calculating average losses, and it prints the training progress at regular intervals.</p>
+<p>Returns:
+None: This function does not return a value but prints the training progress and average losses per epoch.</p>
+
+          <details class="quote">
+            <summary>Source code in <code>trainer.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">train_simple_gan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Train a Generative Adversarial Network (GAN) consisting of a generator and discriminator.</span>
+
+<span class="sd">    This function orchestrates the training process of a GAN over a specified number of epochs.</span>
+<span class="sd">    Training involves alternating between training the discriminator and the generator.</span>
+<span class="sd">    The discriminator is trained to distinguish real data from fake data generated by the generator,</span>
+<span class="sd">    while the generator is trained to produce data that appears real to the discriminator.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - epochs (int): The number of training epochs.</span>
+<span class="sd">    - latent_space (int): The size of the latent space used to generate noise samples for the generator.</span>
+<span class="sd">    - print_interval (int): Interval of steps for printing training progress within each epoch.</span>
+<span class="sd">    - dataloader (DataLoader): DataLoader object providing access to the dataset.</span>
+<span class="sd">    - device (torch.device): The device (CPU/GPU) on which the training is performed.</span>
+
+<span class="sd">    The function assumes that &#39;train_discriminator&#39; and &#39;train_generator&#39; are pre-defined functions</span>
+<span class="sd">    that handle the training of the discriminator and generator, respectively. Additionally,</span>
+<span class="sd">    &#39;generator&#39; and &#39;discriminator&#39; should be predefined models. The function also requires</span>
+<span class="sd">    &#39;np.mean&#39; for calculating average losses, and it prints the training progress at regular intervals.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    None: This function does not return a value but prints the training progress and average losses per epoch.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">print_interval</span> <span class="o">=</span> <span class="mi">100</span>
+
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">):</span>
+        <span class="n">discriminator_loss</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">generator_loss</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">real_samples</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataloader</span><span class="p">):</span>
+            <span class="n">real_samples</span> <span class="o">=</span> <span class="n">real_samples</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">batch_size</span> <span class="o">=</span> <span class="n">real_samples</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generate noise samples and fake samples&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+
+            <span class="n">noise_samples</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">latent_space</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">device</span>
+            <span class="p">)</span>
+            <span class="n">fake_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="p">(</span><span class="n">noise_samples</span><span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Define labels for real and fake samples&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+
+            <span class="n">real_labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">fake_labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Train the discriminator&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+
+            <span class="n">d_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_discriminator</span><span class="p">(</span>
+                <span class="n">real_samples</span><span class="o">=</span><span class="n">real_samples</span><span class="p">,</span>
+                <span class="n">fake_samples</span><span class="o">=</span><span class="n">fake_samples</span><span class="p">,</span>
+                <span class="n">real_labels</span><span class="o">=</span><span class="n">real_labels</span><span class="p">,</span>
+                <span class="n">fake_labels</span><span class="o">=</span><span class="n">fake_labels</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Train the generator&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+
+            <span class="n">g_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_generator</span><span class="p">(</span>
+                <span class="n">fake_samples</span><span class="o">=</span><span class="n">fake_samples</span><span class="p">,</span> <span class="n">real_labels</span><span class="o">=</span><span class="n">real_labels</span>
+            <span class="p">)</span>
+
+            <span class="n">discriminator_loss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d_loss</span><span class="p">)</span>
+            <span class="n">generator_loss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">g_loss</span><span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Print training progress every &#39;print_interval&#39; iterations&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="n">print_interval</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Epoch [</span><span class="si">{</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="si">}</span><span class="s2">], Step [</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataloader</span><span class="p">)</span><span class="si">}</span><span class="s2">], d_loss: </span><span class="si">{</span><span class="n">d_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, g_loss: </span><span class="si">{</span><span class="n">g_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Output average loss at the end of each epoch&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch [</span><span class="si">{</span><span class="n">epoch</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="si">}</span><span class="s2">] Completed&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;[==============] Average d_loss: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">discriminator_loss</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> - Average g_loss: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">generator_loss</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Save checkpoint at the end of each epoch&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">saved_checkpoint</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../generator/" class="btn btn-neutral float-left" title="Generator"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../data_loader/" class="btn btn-neutral float-right" title="Dataloader">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../generator/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../data_loader/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

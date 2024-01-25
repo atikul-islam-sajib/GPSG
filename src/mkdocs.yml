@@ -1,0 +1,14 @@
+site_name: My Docs
+
+nav:
+  - Home: index.md
+  - Discriminator: discriminator.md
+  - Generator: generator.md
+  - Trainer: trainer.md
+  - Dataloader: data_loader.md
+
+plugins: 
+   - search
+   - mkdocstrings
+
+theme: readthedocs
