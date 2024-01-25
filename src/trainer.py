@@ -9,15 +9,15 @@ import torch.optim as optim
 
 sys.path.append("/src")
 
-from generator import Generator
-from discriminator import Discriminator
-
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     filemode="w",
-    filename="./logs/train.log",
+    filename="./logs/train.log/",
 )
+
+from generator import Generator
+from discriminator import Discriminator
 
 
 class Trainer:
